@@ -1,17 +1,13 @@
 // api/bfhl.js
-// Vercel serverless function for BFHL assignment
-
 module.exports = async (req, res) => {
   if (req.method === 'GET') {
     return res.status(200).json({ ok: true, hint: 'POST { "data": [...] } to this endpoint' });
   }
-
   if (req.method !== 'POST') {
     return res.status(405).json({ is_success: false, error: 'Only POST allowed' });
   }
 
   try {
-    // Body parsing (works if body is string or JSON)
     let body = req.body;
     if (typeof body === 'string') {
       try { body = JSON.parse(body); } catch {
@@ -21,12 +17,11 @@ module.exports = async (req, res) => {
     if (!body || !Array.isArray(body.data)) {
       return res.status(400).json({ is_success: false, error: 'Body must be { "data": [...] }' });
     }
-
     const data = body.data;
 
-    // 🔧 CHANGE THESE VALUES
-    const FULL_NAME = 'pragya_batra';     
-    const DOB_DDMMYYYY = '01012002';      
+    // YOUR DETAILS
+    const FULL_NAME = 'pragya_batra';
+    const DOB_DDMMYYYY = '01012002';
     const EMAIL = 'pragya.batra2026@vitstudent.ac.in';
     const ROLL  = '22BCE1234';
 
@@ -54,8 +49,7 @@ module.exports = async (req, res) => {
     }
 
     const concat_string = concatRaw
-      .split('')
-      .reverse()
+      .split('').reverse()
       .map((ch, i) => (i % 2 === 0 ? ch.toUpperCase() : ch.toLowerCase()))
       .join('');
 
